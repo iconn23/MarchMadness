@@ -36,7 +36,7 @@ def preprocess():
     y = df['POSTSEASON']  # target
 
     # split dataset into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # dictionary of training functions
     train_functions = {
@@ -54,13 +54,13 @@ def preprocess():
 
 def train_SVM(X_train, X_test, y_train, y_test):
     # train the Support Vector Machine Classifier
-    model = SVC(kernel='linear', random_state=42)  # kernel can be 'linear', 'poly', 'rbf', 'sigmoid', etc.
+    model = SVC(kernel='linear', random_state=42)
     model.fit(X_train, y_train)
 
     # evaluate the model's accuracy
     y_pred = model.predict(X_test)
     print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
-    f1 = f1_score(y_test, y_pred, average='weighted')  # 'weighted' considers class imbalance
+    f1 = f1_score(y_test, y_pred, average='weighted')
     print(f'F1-Score: {f1}\n')
 
     # save the model
@@ -76,7 +76,7 @@ def train_LR(X_train, X_test, y_train, y_test):
     # evaluate the model's accuracy
     y_pred = model.predict(X_test)
     print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
-    f1 = f1_score(y_test, y_pred, average='weighted')  # 'weighted' accounts for class imbalance
+    f1 = f1_score(y_test, y_pred, average='weighted')
     print(f'F1-Score: {f1}\n')
 
     # save the model
@@ -86,13 +86,13 @@ def train_LR(X_train, X_test, y_train, y_test):
 
 def train_KNN(X_train, X_test, y_train, y_test):
     # train the K-Nearest Neighbors Classifier
-    model = KNeighborsClassifier(n_neighbors=9)  # n_neighbors can be adjusted based on your specific needs
+    model = KNeighborsClassifier(n_neighbors=9)
     model.fit(X_train, y_train)
 
     # evaluate the model's accuracy
     y_pred = model.predict(X_test)
     print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
-    f1 = f1_score(y_test, y_pred, average='weighted')  # 'weighted' takes into account class imbalance
+    f1 = f1_score(y_test, y_pred, average='weighted')
     print(f'F1-Score: {f1}\n')
 
     # save the model
@@ -109,7 +109,7 @@ def train_RF(X_train, X_test, y_train, y_test):
     y_pred = model.predict(X_test)
     print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
     f1 = f1_score(y_test, y_pred,
-                  average='weighted')  # 'weighted' handles class imbalance by weighting the score by class support
+                  average='weighted')
     print(f'F1-Score: {f1}\n')
 
     # save the model
@@ -146,7 +146,7 @@ def predict():
         output_data = sorted_data[['TEAM', 'PredictedPostseason']]
         champion = sorted_data.iloc[0]['TEAM']
         model_name = os.path.basename(model_filename)[:-7]
-        print(f"{model_name} model predicts {champion} as champion")
+        print(f"{model_name} model predicts {champion} as 2024 champion.")
 
         # save output file
         output_filename = f"{model_name}_output.csv"
